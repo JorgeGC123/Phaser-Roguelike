@@ -15,9 +15,7 @@ var map;
 var asciidisplay;
 
 // initialize phaser, call create() once done
-var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, null, {
-    create: create
-});
+var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, 'container', {  create: create, });
 
 function create() {
     // init keyboard commands
