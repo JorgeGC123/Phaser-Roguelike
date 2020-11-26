@@ -4,7 +4,7 @@
 	<script src="js/phaser.min.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/asciidisplay.js"></script>
-	<script src="js/rl.js"></script>
+	<script src="js/main.js"></script>
 	
 	<link rel="stylesheet" href="css/styles.css">
 </head>

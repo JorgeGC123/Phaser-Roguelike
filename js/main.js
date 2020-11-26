@@ -2,15 +2,16 @@
 var FONT = 32;
 
 // map dimensions
-const ROWS = 10;
-const COLS = 15;
+const ROWS = 15;
+const COLS = 25;
 
 // number of actors per level, including player
 var ACTORS = 10;
 
 // the structure of the map
 var mapa = new map(ROWS,COLS);
-//display 
+
+//display en ascii
 display1= new asciidisplay(ROWS,COLS);  
 
 // initialize phaser, call create() once done
@@ -21,8 +22,7 @@ function create() {
     game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
     // initialize map
-    matriz = mapa.initMap();
-    map.drawMap(display1.createDisplay());
+    map.drawMap(display1.createDisplay(), mapa.getMatriz());
 }
 
 function onKeyUp(event) {
@@ -34,6 +34,5 @@ function onKeyUp(event) {
         case Phaser.Keyboard.UP:
 
         case Phaser.Keyboard.DOWN:
-
     }
 }

@@ -3,23 +3,20 @@ class map {
     constructor(ROWS,COLS){
         this.ROWS = ROWS;
         this.COLS = COLS;
-        
-    }
-
-    initMap() {
-        // create a new random map
-        var matriz = [];
+        this.matriz = [];
         for (var y = 0; y < this.ROWS; y++) {
             var newRow = [];
             for (var x = 0; x < this.COLS; x++) {
                 if (Math.random() > 0.8)
-                    newRow.push('#');
+                    newRow.push('#'); //impasable
                 else
-                    newRow.push('.');
+                    newRow.push('.'); //terreno pasable
             }
-            matriz.push(newRow);
+            this.matriz.push(newRow);
         }
-        return matriz;
+    }
+    getMatriz(){
+        return this.matriz;
     }
     getRows(){
         return this.ROWS;
@@ -27,9 +24,9 @@ class map {
     getCols(){
         return this.COLS;
     }
-    static drawMap(display) {
+    static drawMap(display, matrix) {
         for (var y = 0; y < ROWS; y++)
             for (var x = 0; x < COLS; x++)
-                display[y][x].content = matriz[y][x];
+                display[y][x].content = matrix[y][x];
     }
 }
