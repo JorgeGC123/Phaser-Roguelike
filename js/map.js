@@ -30,6 +30,7 @@ class map {
         getCols(){
             return this.COLS;
         }
+        
     static drawMap(display, matrix) {
         for (var y = 0; y < ROWS; y++)
             for (var x = 0; x < COLS; x++)
