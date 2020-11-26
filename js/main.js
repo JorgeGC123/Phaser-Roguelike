@@ -23,6 +23,7 @@ function create() {
 
     // initialize map
     map.drawMap(display1.createDisplay(), mapa.getMatriz());
+    mapa.logMatriz();
 }
 
 function onKeyUp(event) {
