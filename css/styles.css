@@ -1,4 +1,14 @@
-canvas{
-  
+header{
     text-align: center;
+}
+
+#container{
+    align-content: center;
+}
+#xd{
+    text-align: center;
+    margin: auto;
+}
+#xd * {
+    display: inline !important;
 }
