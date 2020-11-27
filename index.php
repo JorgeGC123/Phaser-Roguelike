@@ -2,6 +2,7 @@
 <head>
 	<title>Roguelike</title>
 	<script src="js/phaser.min.js"></script>
+	<script src="js/actor.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/asciidisplay.js"></script>
 	<script src="js/main.js"></script>

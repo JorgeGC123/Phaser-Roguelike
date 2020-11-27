@@ -6,7 +6,7 @@ const ROWS = 15;
 const COLS = 25;
 
 // number of actors per level, including player
-var ACTORS = 10;
+const ACTORS = 10;
 
 // the structure of the map
 var mapa = new map(ROWS, COLS);
@@ -16,11 +16,11 @@ var mapa = new map(ROWS, COLS);
 
 // a list of all actors, 0 is the player -> convertir en clases
 var player;
-var actorList;
+var actorList = [];
 var livingEnemies;
 
 // points to each actor in its position, for quick searching
-var actorMap;
+var actorMap = {};
 
 // initialize phaser, call create() once done
 var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, 'xd', { create: create, });
@@ -31,59 +31,12 @@ function create() {
     game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
     // initialize actors
-    initActors();
+    display1.initActors(ACTORS, actorList, actorMap, livingEnemies, player);
 
     // initialize map
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
-
     mapa.logMatriz();
-
-    drawActors();
-}
-
-
-
-function randomInt(max) {
-    return Math.floor(Math.random() * max);
-}
-
-function initActors() {
-    // create actors at random locations
-    actorList = [];
-    actorMap = {};
-    for (var e = 0; e < ACTORS; e++) {
-        // create new actor
-        var actor = {
-            x: 0,
-            y: 0,
-            hp: e == 0 ? 3 : 1
-        };
-        do {
-            // pick a random position that is both a floor and not occupied
-            actor.y = randomInt(ROWS);
-            actor.x = randomInt(COLS);
-        } while (mapa.getPosition(actor.y, actor.x) == '#' || actorMap[actor.y + "_" + actor.x] != null);
-
-        // add references to the actor to the actors list & map
-        actorMap[actor.y + "_" + actor.x] = actor;
-        actorList.push(actor);
-    }
-
-    // the player is the first actor in the list
-    player = actorList[0];
-    livingEnemies = ACTORS - 1;
-}
-
-function drawActors() {
-    for (var a in actorList) {
-        if (actorList[a].hp > 0) {
-            if(a == 0){             
-                display1.setDisplay(actorList[a].y, actorList[a].x, '' + player.hp);
-            }else{
-                display1.setDisplay(actorList[a].y, actorList[a].x, 'e');
-            }
-        }
-    }
+    display1.drawActors(actorList);
 }
 
 function onKeyUp(event) {
