@@ -24,13 +24,15 @@ class map {
     logMatriz() {
         console.table(this.matriz);
     }
-        getRows(){
-            return this.ROWS;
-        }
-        getCols(){
-            return this.COLS;
-        }
-        
+    getRows() {
+        return this.ROWS;
+    }
+    getCols() {
+        return this.COLS;
+    }
+    getPosition(y,x){
+        return this.matriz[y][x];
+    }
     static drawMap(display, matrix) {
         for (var y = 0; y < ROWS; y++)
             for (var x = 0; x < COLS; x++)
