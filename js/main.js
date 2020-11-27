@@ -77,7 +77,11 @@ function initActors() {
 function drawActors() {
     for (var a in actorList) {
         if (actorList[a].hp > 0) {
-            display1.getDisplay(actorList[a].y, actorList[a].x).content = a == 0 ? '' + player.hp : 'e';
+            if(a == 0){             
+                display1.setDisplay(actorList[a].y, actorList[a].x, '' + player.hp);
+            }else{
+                display1.setDisplay(actorList[a].y, actorList[a].x, 'e');
+            }
         }
     }
 }

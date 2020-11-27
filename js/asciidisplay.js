@@ -10,8 +10,8 @@ class asciidisplay {
     getDisplay(y,x){
         return this.display[y][x];
     }
-    setDisplay(y,x){
-        this.display[y][x];
+    setDisplay(y,x, value){
+        this.display[y][x].content = value;
     }
     createDisplay(game){
         
@@ -23,4 +23,5 @@ class asciidisplay {
         }
         return this.display;
     }
+    
 }
