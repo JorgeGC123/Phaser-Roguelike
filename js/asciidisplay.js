@@ -52,6 +52,7 @@ class asciidisplay {
     }
     drawActors(actorList) {
         for (var a in actorList) {
+            
             if (actorList[a].hp > 0) {
                 if(a == 0){             
                     this.setDisplay(actorList[a].y, actorList[a].x, '' + player.icon);

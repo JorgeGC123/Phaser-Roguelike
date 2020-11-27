@@ -38,4 +38,7 @@ class map {
             for (var x = 0; x < COLS; x++)
                 display[y][x].content = matrix[y][x];
     }
+
+    
+
 }
