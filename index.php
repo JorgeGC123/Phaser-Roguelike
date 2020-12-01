@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <head>
 	<title>Roguelike</title>
+
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/styles.css">
+
 	<script src="js/phaser.min.js"></script>
-	
 	<script src="js/actor.js"></script>
-	<script src="js/ai.min.js"></script>
 	<script src="js/map.js"></script>
 	<script src="js/asciidisplay.js"></script>
 	<script src="js/main.js"></script>
-	
-	<link rel="stylesheet" href="css/styles.css">
-</head>
 
+	
+</head>
+<?php require_once('./Model/functions.php'); ?>
 <body>
 
-	<header>
-		<h1> JUEGO SUPER DIVERTIDO </h1>
-	</header>
+	<?php get_header(); ?>
+	<div ><div id='xd'></div></div>
 
-	<div id='container' ><div id='xd'></div></div>
-
-	<?php echo '<h1>xddddddddddd</h1>';?>
 </body>
 
 </html>

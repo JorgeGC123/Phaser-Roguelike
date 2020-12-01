@@ -12,10 +12,10 @@ const ACTORS = 10;
 var mapa = new map(ROWS, COLS);
 
 //display en ascii
-
+var display1 = new asciidisplay(ROWS, COLS);
 
 // a list of all actors, 0 is the player -> convertir en clases
-var player;
+var player; //se inicializan en initActors
 var actorList = [];
 var livingEnemies;
 
@@ -24,14 +24,13 @@ var actorMap = {};
 
 // initialize phaser, call create() once done
 var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, 'xd', { create: create, });
-var display1 = new asciidisplay(ROWS, COLS);
+
 
 function create() {
     // init keyboard commands
     game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
-    // initialize actors
-    display1.initActors(ACTORS, actorList, actorMap, livingEnemies, player);
+    display1.initActors(ACTORS, actorList, actorMap, livingEnemies, player); //inicializa todos los actores del mapa actual
 
     // initialize map
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
@@ -72,48 +71,13 @@ function onKeyUp(event) {
 
             var e = actorList[enemy];
             if (e != null)
-                aiAct(e);
+                actor.aiAct(e, mapa);
         }
 
     // draw actors in new positions
     display1.drawActors(actorList);
 }
-function aiAct(actor1) {
-    var directions = [{ x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }];
-    var dx = player.x - actor1.x;
-    var dy = player.y - actor1.y;
 
-    // if player is far away, walk randomly
-    if (Math.abs(dx) + Math.abs(dy) > 6)
-        // try to walk in random directions until you succeed once
-
-        while (!actor1.moveTo(mapa, directions[Math.floor(Math.random() * directions.length)])) { };
-
-    // otherwise walk towards player
-    if (Math.abs(dx) > Math.abs(dy)) {
-        console.log(actor1.name + ': Te voy a matar hijode puta');
-        if (dx < 0) {
-            // left
-            actor1.moveTo(mapa,directions[0]);
-        } else {
-            // right
-            actor1.moveTo(mapa,directions[1]);
-        }
-    } else {
-        if (dy < 0) {
-            // up
-            actor1.moveTo(mapa, directions[2]);
-        } else {
-            // down
-            actor1.moveTo(mapa, directions[3]);
-        }
-    }
-    if (player.hp < 1) {
-        // game over message
-        var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill: '#e22', align: "center" });
-        gameOver.anchor.setTo(0.5, 0.5);
-    }
-}
 
 
 

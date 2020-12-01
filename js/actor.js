@@ -30,7 +30,7 @@ class actor {
         var newKey = (this.y + dir.y) + '_' + (this.x + dir.x);
         // if the destination tile has an this in it 
         if (actorMap[newKey] != null) {
-            console.log(this.name + ': TOMA HOSTIA CABRÓN CON NOMBRE ' + actorMap[newKey].name)
+            console.log(this.name + ': Atacando ' + actorMap[newKey].name)
             //decrement hitpoints of the this at the destination tile
             var victim = actorMap[newKey];
             victim.hp--;
@@ -65,5 +65,41 @@ class actor {
             actorMap[this.y + '_' + this.x] = this;
         }
         return true;
+    }
+
+    static aiAct(actor1,mapa) {
+        var directions = [{ x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }];
+        var dx = player.x - actor1.x;
+        var dy = player.y - actor1.y;
+    
+        // if player is far away, walk randomly
+        if (Math.abs(dx) + Math.abs(dy) > 6)
+            // try to walk in random directions until you succeed once
+
+            while (!actor1.moveTo(mapa, directions[Math.floor(Math.random() * directions.length)])) { };
+    
+        // otherwise walk towards player
+        if (Math.abs(dx) > Math.abs(dy)) {
+            if (dx < 0) {
+                // left
+                actor1.moveTo(mapa,directions[0]);
+            } else {
+                // right
+                actor1.moveTo(mapa,directions[1]);
+            }
+        } else {
+            if (dy < 0) {
+                // up
+                actor1.moveTo(mapa, directions[2]);
+            } else {
+                // down
+                actor1.moveTo(mapa, directions[3]);
+            }
+        }
+        if (player.hp < 1) {
+            // game over message
+            var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill: '#e22', align: "center" });
+            gameOver.anchor.setTo(0.5, 0.5);
+        }
     }
 }
