@@ -19,7 +19,7 @@ div#central{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-h1{
+h1.nombreZona{
     font-size: 50px;
     color: ivory;
 }

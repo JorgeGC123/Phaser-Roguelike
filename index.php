@@ -34,7 +34,8 @@
 	<div class="container-fluid">
 		<div class="row" id="central">
 			<div class="col-sm">
-				Bloque con la información del jugador
+				<h1>JUGADOR</h1>
+				<p id="hp"></p>
 			</div>
 			<div class="col-sm">
 				<div id='xd'></div>

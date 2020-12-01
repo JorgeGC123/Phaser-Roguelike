@@ -36,12 +36,14 @@ function create() {
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
     mapa.logMatriz();
     display1.drawActors(actorList);
+   
 }
 
 function onKeyUp(event) {
     // draw map to overwrite previous actors positions
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
-    console.log('MI HP = ' + player.hp);
+ 
+    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
     // act on player input
     var acted = false;
     switch (event.keyCode) {
