@@ -42,7 +42,7 @@ function create() {
 function onKeyUp(event) {
     // draw map to overwrite previous actors positions
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
-    console.log('MI HP = '+player.hp);
+    console.log('MI HP = ' + player.hp);
     // act on player input
     var acted = false;
     switch (event.keyCode) {
@@ -78,32 +78,61 @@ function onKeyUp(event) {
     // draw actors in new positions
     display1.drawActors(actorList);
 }
+function aiAct(actor1) {
+    var directions = [{ x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }];
+    var dx = player.x - actor1.x;
+    var dy = player.y - actor1.y;
 
-function canGo(actor, dir) {
-    return actor.x + dir.x >= 0 &&
-        actor.x + dir.x <= COLS - 1 &&
-        actor.y + dir.y >= 0 &&
-        actor.y + dir.y <= ROWS - 1 &&
-        mapa.getPosition(actor.y + dir.y, actor.x + dir.x) == '.';
+    // if player is far away, walk randomly
+    if (Math.abs(dx) + Math.abs(dy) > 6)
+        // try to walk in random directions until you succeed once
+
+        while (!moveTo(actor1, directions[Math.floor(Math.random() * directions.length)])) { };
+
+    // otherwise walk towards player
+    if (Math.abs(dx) > Math.abs(dy)) {
+        console.log(actor1.name + ': Te voy a matar hijode puta');
+        if (dx < 0) {
+            // left
+            moveTo(actor1, directions[0]);
+        } else {
+            // right
+            moveTo(actor1, directions[1]);
+        }
+    } else {
+        if (dy < 0) {
+            // up
+            moveTo(actor1, directions[2]);
+        } else {
+            // down
+            moveTo(actor1, directions[3]);
+        }
+    }
+    if (player.hp < 1) {
+        // game over message
+        var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill: '#e22', align: "center" });
+        gameOver.anchor.setTo(0.5, 0.5);
+    }
 }
 
-function moveTo(actor, dir) {
-    // check if actor can move in the given direction
-    if (!canGo(actor, dir))
+
+function moveTo(actor1, dir) {
+    // check if actor1 can move in the given direction
+    if (!actor1.canGo(mapa, dir))
         return false;
 
-    // moves actor to the new location
-    var newKey = (actor.y + dir.y) + '_' + (actor.x + dir.x);
-    // if the destination tile has an actor in it 
+    // moves actor1 to the new location
+    var newKey = (actor1.y + dir.y) + '_' + (actor1.x + dir.x);
+    // if the destination tile has an actor1 in it 
     if (actorMap[newKey] != null) {
-        console.log(actor.name+': TOMA HOSTIA CABRÓN CON NOMBRE '+actorMap[newKey].name)
-        //decrement hitpoints of the actor at the destination tile
+        console.log(actor1.name + ': TOMA HOSTIA CABRÓN CON NOMBRE ' + actorMap[newKey].name)
+        //decrement hitpoints of the actor1 at the destination tile
         var victim = actorMap[newKey];
         victim.hp--;
 
         // if it's dead remove its reference 
         if (victim.hp == 0) {
-            console.log(victim.name+': ME MORÍ! NOOO :(')
+            console.log(victim.name + ': ME MORÍ! NOOO :(')
             actorMap[newKey] = null;
             //actorList[actorList.indexOf(victim)] = null;
             var index = actorList.indexOf(victim);
@@ -120,55 +149,18 @@ function moveTo(actor, dir) {
             }
         }
     } else {
-        // remove reference to the actor's old position
-        actorMap[actor.y + '_' + actor.x] = null;
+        // remove reference to the actor1's old position
+        actorMap[actor1.y + '_' + actor1.x] = null;
 
         // update position
-        actor.y += dir.y;
-        actor.x += dir.x;
+        actor1.y += dir.y;
+        actor1.x += dir.x;
 
-        // add reference to the actor's new position
-        actorMap[actor.y + '_' + actor.x] = actor;
+        // add reference to the actor1's new position
+        actorMap[actor1.y + '_' + actor1.x] = actor1;
     }
     return true;
 }
 
 
-function aiAct(actor) {
-
-    var directions = [{ x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: -1 }, { x: 0, y: 1 }];
-    var dx = player.x - actor.x;
-    var dy = player.y - actor.y;
-
-    // if player is far away, walk randomly
-    if (Math.abs(dx) + Math.abs(dy) > 6)
-        // try to walk in random directions until you succeed once
-       
-    while (!moveTo(actor, directions[Math.floor(Math.random() * directions.length)])) { };
-
-    // otherwise walk towards player
-    if (Math.abs(dx) > Math.abs(dy)) {
-        console.log(actor.name + ': Te voy a matar hijode puta');
-        if (dx < 0) {
-            // left
-            moveTo(actor, directions[0]);
-        } else {
-            // right
-            moveTo(actor, directions[1]);
-        }
-    } else {
-        if (dy < 0) {
-            // up
-            moveTo(actor, directions[2]);
-        } else {
-            // down
-            moveTo(actor, directions[3]);
-        }
-    }
-    if (player.hp < 1) {
-        // game over message
-        var gameOver = game.add.text(game.world.centerX, game.world.centerY, 'Game Over\nCtrl+r to restart', { fill: '#e22', align: "center" });
-        gameOver.anchor.setTo(0.5, 0.5);
-    }
-}
 
