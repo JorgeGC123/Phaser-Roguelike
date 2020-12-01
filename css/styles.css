@@ -3,7 +3,7 @@ header{
     position: relative;
     display: block;
 }
-.headerimg{
+header>img{
     width: 100%;
     max-height: 400px;
     margin-bottom: 1%;
