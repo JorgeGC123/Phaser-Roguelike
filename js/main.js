@@ -28,39 +28,42 @@ var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, 'xd', { 
 
 function create() {
     // init keyboard commands
+    //document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
     game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
     display1.initActors(ACTORS, actorList, actorMap, livingEnemies, player); //inicializa todos los actores del mapa actual
-
+    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
     // initialize map
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
+
     mapa.logMatriz();
     display1.drawActors(actorList);
-   
+
 }
 
 function onKeyUp(event) {
+    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
     // draw map to overwrite previous actors positions
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
- 
-    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
+
+
     // act on player input
     var acted = false;
     switch (event.keyCode) {
         case Phaser.Keyboard.LEFT:
-            acted = player.moveTo(mapa, { x: -1, y: 0 });
+            acted = player.moveTo(mapa, { x: -1, y: 0 },actorList);
             break;
-
         case Phaser.Keyboard.RIGHT:
-            acted = player.moveTo(mapa, { x: 1, y: 0 });
+            acted = player.moveTo(mapa, { x: 1, y: 0 }, actorList);
             break;
-
         case Phaser.Keyboard.UP:
-            acted = player.moveTo(mapa, { x: 0, y: -1 });
+            acted = player.moveTo(mapa, { x: 0, y: -1 },actorList);
             break;
-
         case Phaser.Keyboard.DOWN:
-            acted = player.moveTo(mapa, { x: 0, y: 1 });
+            acted = player.moveTo(mapa, { x: 0, y: 1 },actorList);
+            break;
+        case Phaser.Keyboard.ENTER:
+            acted = player.moveTo(mapa, { x: 0, y: 0 }, actorList);
             break;
     }
 
@@ -78,6 +81,7 @@ function onKeyUp(event) {
 
     // draw actors in new positions
     display1.drawActors(actorList);
+    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
 }
 
 

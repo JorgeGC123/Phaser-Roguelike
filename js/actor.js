@@ -13,6 +13,9 @@ class actor {
     getNombre() {
         return this.name;
     }
+    getHp(){
+        return this.hp;
+    }
     canGo(mapa, dir) {
         return this.x + dir.x >= 0 &&
             this.x + dir.x <= COLS - 1 &&
@@ -20,7 +23,7 @@ class actor {
             this.y + dir.y <= ROWS - 1 &&
             mapa.getPosition(this.y + dir.y, this.x + dir.x) == '.';
     }
-    moveTo(mapa, dir) {
+    moveTo(mapa, dir, actorList) {
         // check if this can move in the given direction
         
         if (!this.canGo(mapa, dir))
@@ -29,7 +32,7 @@ class actor {
         // moves this to the new location
         var newKey = (this.y + dir.y) + '_' + (this.x + dir.x);
         // if the destination tile has an this in it 
-        if (actorMap[newKey] != null) {
+        if (actorMap[newKey] != null && actorMap[newKey]!=this) {
             console.log(this.name + ': Atacando ' + actorMap[newKey].name)
             //decrement hitpoints of the this at the destination tile
             var victim = actorMap[newKey];
@@ -46,6 +49,7 @@ class actor {
                 }
                 if (victim != player) {
                     livingEnemies--;
+                    console.log(livingEnemies);
                     if (livingEnemies == 0) {
                         // victory message
                         var victory = game.add.text(game.world.centerX, game.world.centerY, 'Victory!\nCtrl+r to restart', { fill: '#2e2', align: "center" });

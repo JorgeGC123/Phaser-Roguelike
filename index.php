@@ -68,10 +68,11 @@
 		img.addEventListener('load', function() {
 			color =	colorThief.getColor(img);
 			console.log(color);
-			let r = color[0]
-			let g = color[1]
-			let b = color[2]
-			document.getElementById("mainback").style.backgroundColor = 'rgba('+r+','+g+','+b+',0.9)';
+			let r= color[0]+50;
+			let g = color[1]+50;	
+			let b = color[2]+50;
+		
+			document.getElementById("mainback").style.backgroundColor = 'rgb('+r+','+g+','+b+')';
 		});
 	}
 	

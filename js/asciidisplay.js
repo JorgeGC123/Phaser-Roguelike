@@ -46,13 +46,11 @@ class asciidisplay {
         player.name = 'Player';
         player.icon = player.hp;
         livingEnemies = ACTORS - 1;
-       
-        //actorList.forEach(actores => console.log(actores.getNombre()));
-        console.table(actorList);
+        
+
     }
     drawActors(actorList) {
-        for (var a in actorList) {
-            
+        for (var a in actorList) {  
             if (actorList[a].hp > 0) {
                 if(a == 0){             
                     this.setDisplay(actorList[a].y, actorList[a].x, '' + player.icon);
