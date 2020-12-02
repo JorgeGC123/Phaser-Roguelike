@@ -17,7 +17,7 @@ var display1 = new asciidisplay(ROWS, COLS);
 // a list of all actors, 0 is the player -> convertir en clases
 var player; //se inicializan en initActors
 var actorList = [];
-var livingEnemies;
+var livingEnemies; // HAY QUE ARREGLAR ESTO
 
 // points to each actor in its position, for quick searching
 var actorMap = {};
@@ -28,15 +28,14 @@ var game = new Phaser.Game(COLS * FONT * 0.6, ROWS * FONT, Phaser.AUTO, 'xd', { 
 
 function create() {
     // init keyboard commands
-    //document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
+
     game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
     display1.initActors(ACTORS, actorList, actorMap, livingEnemies, player); //inicializa todos los actores del mapa actual
-    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //convertir en inicializador
+    document.getElementById("hp").innerHTML = 'Hp actual = ' + player.hp; //mostrar hp inicial
     // initialize map
     map.drawMap(display1.createDisplay(game), mapa.getMatriz());
 
-    mapa.logMatriz();
     display1.drawActors(actorList);
 
 }
